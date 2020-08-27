@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="rfleeman95" />
+
+<meta name="date" content="2020-08-27" />
+
+<title>first-analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">JC</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/rfleeman95/JC">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">first-analysis</h1>
+<h4 class="author">rfleeman95</h4>
+<h4 class="date">2020-08-27</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-08-27
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>JC/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200827code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200827)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200827code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200827)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomrfleeman95JCtree8826c2bd3e4d1d7f19c2bca87c4ee96a8f4d24a5targetblank8826c2ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/rfleeman95/JC/tree/8826c2bd3e4d1d7f19c2bca87c4ee96a8f4d24a5" target="_blank">8826c2b</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomrfleeman95JCtree8826c2bd3e4d1d7f19c2bca87c4ee96a8f4d24a5targetblank8826c2ba" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/rfleeman95/JC/tree/8826c2bd3e4d1d7f19c2bca87c4ee96a8f4d24a5" target="_blank">8826c2b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/first-analysis.Rmd</code>) and HTML (<code>docs/first-analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/rfleeman95/JC/blob/8826c2bd3e4d1d7f19c2bca87c4ee96a8f4d24a5/analysis/first-analysis.Rmd" target="_blank">8826c2b</a>
+</td>
+<td>
+rfleeman95
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+Publish test files for my project
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<pre class="r"><code>setwd(&quot;/Users/BeccaFleeman/Box Sync/Proctor_Lab/Computational&quot;)
+My_csv&lt;-read.csv(&quot;Fleeman_Dennis_Data.csv&quot;,header=T,stringsAsFactors = F)
+My_csv</code></pre>
+<pre><code>   Class      G.CSF   GM.CSF     IL.1a       IL.2      IL.3     IL.6
+1     WT 0.33482045 6.881251  7.704716 0.00000000 0.2562151 17.42882
+2     WT 5.40291108 7.283192  7.693260 0.16810960 0.2517010 43.13553
+3     WT 0.64974199 7.368178 19.110322 3.46604554 0.2581989 11.91271
+4     WT 4.93881832 8.244404 16.189409 2.93570640 0.5387114 21.28002
+5     WT 4.04617596 8.111066 12.244689 2.74739430 0.6409352 24.59099
+6     WT 0.53536155 8.655960  7.835396 1.17735683 0.4375093 12.29876
+7     WT 0.14257926 6.505238 11.879133 1.30352377 0.2378451 12.83174
+8     WT 0.51819933 7.035429 11.703565 1.81703808 0.2395044 11.07561
+9     WT 0.15394012 6.475814  9.944912 4.47553256 0.2846100  9.53698
+10    WT 0.30411321 5.207370  6.561332 0.05436217 0.2530724 11.39798
+11    WT 9.51644293 7.869754  6.967814 0.20223380 0.2942871 33.43811
+12    WT 0.16717974 5.103408 14.320252 2.13507768 0.2639871 10.61349
+13    WT 0.14356960 5.887469 12.345060 1.05770728 0.2742857 20.39243
+14    WT 0.19435403 8.418415 15.309689 2.00438603 0.2772715 28.97951
+15    WT 0.05194074 4.886631  7.030525 0.05436217 0.2000808 23.21560
+16    WT 0.14239232 7.639387 11.163932 0.89215419 0.2320945 20.99592
+17    WT 0.22226142 8.677133 13.288609 1.01437785 0.2249745 24.74962
+18    WT 3.02336147 6.959568  9.383835 0.63499419 0.2122379 24.17807
+19    WT 0.06561087 6.246521 15.657113 2.79747960 0.2740898 25.06696
+20    WT 0.01367013 4.350077  6.746213 0.29888249 0.2065284 17.46367
+21    WT 0.01367013 8.258538  7.348269 0.45438897 0.2302298 15.77828
+22    WT 0.30411321 6.502381 13.645649 1.89935304 0.2254858 20.84934
+23    WT 0.00000000 7.185337 11.654411 0.78286581 0.1978867 19.49669
+24    WT 0.58067320 6.208209 12.562058 1.39686165 0.2266846 21.50471
+25    TG 0.06445456 5.076841 16.004153 1.67877568 0.2050054 23.81897
+26    TG 0.00000000 5.501543 19.582665 1.94978640 0.2434392 17.43685
+27    TG 0.22483524 7.220792  9.329302 0.05436217 0.2342047 25.51486
+28    TG 0.00000000 7.008862 13.088558 1.19146483 0.2376094 23.59410
+29    TG 0.01367013 7.035429  9.161963 0.74409782 0.2112191 15.29323
+30    TG 4.98993513 7.182551  9.208734 0.73308019 0.2210583 33.39507
+31    TG 0.00000000 4.864060 10.108250 0.71154897 0.2258137 13.66285
+32    TG 0.03827061 5.887469  8.309873 0.71375004 0.2488034 20.60023
+33    TG 0.27973876 6.722549  9.377864 1.04410990 0.2473598 21.29077
+34    TG 0.01367013 6.750144 11.686477 1.51131751 0.2284701 21.12826
+35    TG 0.05194074 7.008862 11.138982 1.30752846 0.2434392 16.79539
+36    TG 0.00000000 4.691536  5.716211 0.05436217 0.2175008 20.50375
+37    TG 0.03827061 5.574589  9.748270 0.65212715 0.2051336 13.32354
+38    TG 0.16717974 3.509014 19.764821 1.78984956 0.2141507 16.68751
+39    TG 1.80742508 6.444836  6.967814 0.00000000 0.2261297 20.78989
+40    TG 2.03721290 5.326826 12.253923 0.79937280 0.1925385 28.55838
+41    TG 0.14356960 5.566730 10.456057 1.39470039 0.2338876 15.62429
+42    TG 2.63719398 5.413052  9.675557 0.00000000 0.2285703 32.55538
+43    TG 0.11953625 4.691536 16.022733 2.09030664 0.2122263 12.59948
+44    TG 0.42688166 4.423309  9.901911 0.18694390 0.1980937 13.99127
+45    TG 0.18362640 4.032638 21.510766 2.31424033 0.1924626 13.93893
+46    TG 0.23574461 4.196972  8.571574 0.05436217 0.1671679 14.05147
+47    TG 0.03827061 5.357278  6.545683 0.09508301 0.1561363 10.03085
+48    TG 0.35019216 7.618850 13.706784 1.02287134 0.2338878 14.48232
+        IL.7       IL.9       IL.10   IL.12p40 IL.12p70      LIF    IL.13
+1  0.5604640  0.7820806 0.279461149 0.17151771 4.929622 2.024174 4.711468
+2  0.7634645  0.2668474 0.395695650 0.35700395 5.430170 2.302923 4.376820
+3  0.7867011  6.3551885 0.245731278 0.31579798 3.601112 2.047561 3.165732
+4  1.1715927 16.6413425 0.942103360 1.34349192 4.396561 2.116933 5.924910
+5  1.8321877 30.0410509 1.317490495 1.32222401 6.814055 3.683640 7.376849
+6  0.9604899  2.1144511 0.489313226 0.76643531 5.077951 1.939221 4.843555
+7  0.7251044  0.4002711 0.301242998 0.14105371 4.423053 2.546333 3.820099
+8  0.7030904  7.5169415 0.564063062 0.10521807 3.783103 2.686508 3.822670
+9  0.5035722  3.9173190 0.390512222 0.15516589 4.112298 2.073867 3.435456
+10 0.6410986 57.5989462 0.571456333 0.10993690 3.078951 2.152433 3.489911
+11 0.7392783  0.0000000 0.359681152 0.39160598 4.510680 4.219589 4.153297
+12 0.6450821  4.0954784 0.029286651 0.11123826 4.219357 1.607754 2.891438
+13 0.6114429  2.7631080 0.330244765 0.17281907 4.016341 2.221938 3.930431
+14 0.7016821  3.0938619 0.530847428 0.20605088 4.624621 3.836485 4.209116
+15 0.4813538 31.5044638 0.121037469 0.04954791 2.856903 2.841089 3.054524
+16 0.6661003  9.7295443 0.272140465 0.19357394 3.809474 2.263428 4.432270
+17 0.6484543  1.1128345 0.000000000 0.15516589 2.974770 2.035245 3.709767
+18 0.5844956  1.1128345 0.029286651 0.18423152 2.318291 3.112869 4.152596
+19 0.6268633  0.1334237 0.331228997 0.26351605 5.030525 3.469707 4.042965
+20 0.6563748  7.8588498 0.197426409 0.10326291 3.769351 5.107538 2.945876
+21 0.5019411 12.8883172 0.245048320 0.04954791 3.806469 2.294476 3.053567
+22 0.5685375  0.0000000 0.462832840 0.24784270 3.600281 2.763728 3.604937
+23 0.5110796  0.1334237 0.062832404 0.31027675 2.963133 2.598153 3.491595
+24 0.4112019  1.2462582 0.121037469 0.17281907 3.905007 2.133211 3.820099
+25 0.5891350  5.2353959 0.000000000 0.17709479 4.006350 2.501738 3.217301
+26 0.6345443 27.2302941 0.302382172 0.11877339 2.734608 2.001470 2.890948
+27 0.5827719  1.8949152 0.295322811 0.23102794 3.998769 2.803419 3.219117
+28 0.6280946  0.2668474 0.136254351 0.26729619 4.010164 1.359700 3.270863
+29 0.6120435  1.2462582 0.125664807 0.08918204 2.753939 1.014475 3.164048
+30 0.4754109  2.2256691 0.029286651 0.21746333 3.896014 2.080716 3.931000
+31 0.5818851 17.3454662 0.136070232 0.16390022 2.971935 1.768556 2.891438
+32 0.5384048  5.3611140 0.257191055 0.27627340 3.680235 2.809856 3.824382
+33 0.5978185  0.0000000 0.108461407 0.28557227 4.824336 2.009978 3.602677
+34 0.5099673  1.8949152 0.029286651 0.23308381 4.620641 1.793854 3.271739
+35 0.5245669  1.6876974 0.000184118 0.16488696 5.127040 1.365336 3.380387
+36 0.4948570  1.2462582 0.062832404 0.20545244 2.857373 1.430864 3.711325
+37 0.4782020  2.6671082 0.108461407 0.05813126 3.181129 3.474932 4.041513
+38 0.5672856  2.1144511 0.214180533 0.13000798 3.051890 5.753099 3.820099
+39 0.4890830  0.0000000 0.029102533 0.09246854 3.474047 4.662016 4.041513
+40 0.4597368  0.0000000 0.098897323 0.12398779 2.281065 4.352094 3.931181
+41 0.4671221  2.9379082 0.042663259 0.20498639 1.871940 3.197817 3.271739
+42 0.5695451  2.1144511 0.063016522 0.28941699 3.152427 5.068133 4.320520
+43 0.6045704  1.9810274 0.337565449 0.09590563 3.548780 4.896139 3.382071
+44 0.4245377  0.0000000 0.336672896 0.10094235 2.441521 4.094281 3.388350
+45 0.5235832  0.9155043 0.000000000 0.10094235 3.080718 5.178307 3.271739
+46 0.5462347  0.0000000 0.220195438 0.08120668 2.971935 3.402708 3.000533
+47 0.4277822  1.1128345 0.000000000 0.01029591 1.893300 2.700794 2.731549
+48 0.6131666  2.6296843 0.161729727 0.19456315 2.971935 3.486783 3.600243
+       IL.15     IP.10         KC     MCP.1    MIP.1a    MIP.1b     M.CSF
+1  3.6087765 257.96677  51.285469 17.390610  7.647526  7.287530 1.5347181
+2  2.9700019 314.96713 100.268203 30.664149 10.547088 14.856401 1.5309542
+3  2.9046011 187.64748  33.087488 17.017170  5.485589  6.614591 1.6726079
+4  3.1046445 299.82469 177.707806 43.303667  8.626121 13.327635 2.0648990
+5  5.0459942 233.43339  64.748826 28.259158  9.274285 13.955576 2.3224401
+6  3.2388848 161.41427  14.303335 13.275604  7.395063  7.188114 1.8179354
+7  3.0365240 152.43265  21.101371 14.603678  7.647526  6.182900 1.0469786
+8  2.9739737 132.75585  17.517966 11.957932  6.925958  5.872065 0.8056950
+9  3.0456778  95.13396  13.314069 11.611500  5.903448  5.350681 0.9454269
+10 3.0498423 136.06483  20.091964 14.577762  6.925958  6.018431 1.3591180
+11 4.3989662 272.89713  89.338502 25.868021  8.147530 11.630918 1.2877226
+12 2.7161789 133.45082  14.446919  9.890464  5.595301  4.666345 1.1825171
+13 2.6175015 170.28634  14.632383 11.435129  5.701864  5.388576 1.3237655
+14 4.5857067 199.03748  24.324489 13.514917  7.000013  6.580745 1.6735907
+15 2.4713783 193.51649  21.363018 11.052776  5.568153  5.696093 1.2166661
+16 2.4025106 257.23701  17.409437 11.496335  6.349377  8.200189 1.7436929
+17 3.4301339 209.13510  13.770475 13.250734  7.218402  7.626420 1.5303749
+18 1.4865001 312.46052  29.713484 14.505346  8.560014 14.277810 1.6726079
+19 3.1671807 151.59974  18.970898 12.466891  5.940670  6.502089 1.8847173
+20 2.8048563 109.81673  12.444499  9.736799  5.474324  4.270984 0.8829395
+21 2.9764733 117.47392   7.362419  9.651935  4.869746  6.020758 1.3910563
+22 2.7578634 212.69792  18.970020  9.487742  5.701864  7.205036 1.2197861
+23 1.9208731 190.54116  17.623263 10.568484  5.439454  5.109387 1.2883219
+24 3.4157365 177.00824  16.560023 11.182313  7.105959  7.700862 1.0801259
+25 3.6775994 194.02998  20.431501 11.977612  6.604989  5.194939 1.3903962
+26 1.5253694 146.46441  13.435661  8.061352  5.235518  4.995805 1.2892272
+27 2.7187696 203.07728  28.559482 11.182313  7.105959  6.091879 1.2525065
+28 2.7178969 201.80734  36.227404 12.892637  6.711237  5.491734 1.7420808
+29 2.7203200 163.66238  24.462817 13.622553  6.533667  4.467700 1.1831772
+30 2.5423974 258.86106  56.470153 22.261144  7.238301  9.474416 1.6062696
+31 1.9900732  96.86698  10.106743  6.928344  6.018475  3.371999 0.7480331
+32 4.0261625 182.56730  15.640598 11.031389  5.554482  5.391138 1.2866824
+33 3.6087765 205.22862  24.008801 13.252661  6.386600  6.879884 1.3903962
+34 3.1017271 152.32642  15.853494 10.988733  5.345752  5.525666 1.3230751
+35 2.5425396 121.90878  17.430553  9.736799  4.993524  4.305691 1.3930644
+36 1.8690499 112.51232  12.123114  7.353807  4.515913  4.539099 1.2525065
+37 1.3781139 235.88360  33.726191 15.866820  5.713129  5.757654 1.1817483
+38 1.3936723 301.32384  59.477108 15.115808  5.321626  5.868750 1.1146167
+39 2.5397276 282.40296  67.271012 21.423078  7.207572  8.038968 1.3553245
+40 1.4886370 457.56651  86.683034 28.163557  8.366548 15.489023 1.3577120
+41 1.9755147 294.28289  32.046709 18.642888  6.159059  6.542686 1.4649429
+42 2.4956594 662.92249 214.373460 48.752680  7.633324 16.023450 1.8155568
+43 2.5988171 209.56842  26.666636 10.441221  6.499593  5.601831 1.3916356
+44 1.8380453 192.50643  29.253952 15.037544  4.074918  5.554690 0.8109420
+45 2.0318164 201.76527  23.232817 11.341982  3.733327  3.918424 1.1498329
+46 2.8423939 252.08676  33.346953 13.826733  4.262653  6.043425 1.1131878
+47 0.8525985 238.78022  28.006268  9.676470  3.955471  3.144204 0.9155871
+48 2.3520123 260.45868  36.173503 14.478049  6.335175  7.161298 1.1817483
+      MIP.2      MIG     VEGF      TNFa
+1  44.15764 1.573382 2861.768 1.3490987
+2  93.13127 1.517304 3004.113 1.9434779
+3  42.19691 1.629348 2949.295 1.1397059
+4  78.58594 3.614897 2870.495 1.9434956
+5  63.92660 3.481050 3033.148 1.7793209
+6  46.07948 3.384032 2974.418 1.3151586
+7  38.25628 1.592317 3019.213 0.8737523
+8  43.51598 1.704791 2818.919 0.8794096
+9  26.78632 1.423041 2844.922 0.8624362
+10 42.14425 1.498134 2945.747 1.0265416
+11 80.52797 1.479149 2973.825 1.9151837
+12 44.15764 1.441706 2887.426 0.7605903
+13 41.11649 1.233733 2880.247 0.7945418
+14 50.41251 1.630261 2944.636 1.1736572
+15 39.49349 1.328579 2757.103 0.8511179
+16 37.53276 1.705505 2899.161 1.2359193
+17 25.49614 1.535960 2810.817 1.2415708
+18 58.03324 1.517323 2941.420 2.2209560
+19 37.53276 1.555011 2983.304 0.9982398
+20 27.34961 1.100469 2815.871 0.8001953
+21 33.43615 1.156974 2940.247 0.6474374
+22 36.56360 1.403984 2947.094 0.8850707
+23 23.20673 1.347195 2806.229 1.0095539
+24 35.35881 1.366185 2948.083 1.1906387
+25 37.74666 1.214632 2860.756 0.9077005
+26 42.51317 1.479590 2768.210 0.8794145
+27 45.53855 1.366277 2784.466 0.9190190
+28 47.92230 1.441691 2887.848 0.7945397
+29 37.77162 1.517057 2899.071 0.8341437
+30 55.39320 1.328406 2886.844 1.5302227
+31 40.02296 1.176761 2921.772 0.6870397
+32 41.11649 1.441104 2825.091 0.8058549
+33 46.96438 1.441606 2864.303 1.3604227
+34 44.68711 1.214771 2920.240 0.9020437
+35 47.39631 1.573746 2963.555 0.8171694
+36 31.24070 1.573712 2820.971 0.8850713
+37 40.55786 1.536033 2862.401 1.3038240
+38 52.45002 1.347195 2800.038 1.1453663
+39 38.06765 1.271689 2801.454 1.1623385
+40 69.45500 1.498112 2827.747 2.5437804
+41 48.36721 1.459830 2925.840 1.7736593
+42 84.31993 1.290276 2884.624 2.6627220
+43 34.80787 1.441883 2858.727 0.8567759
+44 42.57619 1.213874 2793.958 1.1397060
+45 26.89758 1.290276 2793.626 0.9359929
+46 34.80787 1.309380 2801.176 1.0774548
+47 30.25498 1.157279 2844.424 0.8171749
+48 55.48236 1.271689 2880.210 1.1114086</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Catalina 10.15.5
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.6.2 Rcpp_1.0.2      rprojroot_1.3-2 digest_0.6.20  
+ [5] later_0.8.0     R6_2.4.0        backports_1.1.4 git2r_0.27.1   
+ [9] magrittr_1.5    evaluate_0.14   stringi_1.4.3   fs_1.3.1       
+[13] promises_1.0.1  whisker_0.4     rmarkdown_2.3   tools_3.6.1    
+[17] stringr_1.4.0   glue_1.3.1      httpuv_1.5.2    xfun_0.9       
+[21] yaml_2.2.0      compiler_3.6.1  htmltools_0.3.6 knitr_1.24     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
