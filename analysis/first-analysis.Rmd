@@ -6,16 +6,19 @@ output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
+# Becca's Example for JC
 
-## Introduction
-
-```{r}
+## Open Libraries
+```{r message = FALSE}
 library(ggplot2)
 library(factoextra)
 library(mixOmics)
 library(ropls)
 library(dplyr)
+```
 
+## Set working directory and prep data
+```{r}
 setwd("/Users/BeccaFleeman/Box Sync/Proctor_Lab/Computational")
 My_csv<-read.csv("Fleeman_Dennis_Data.csv",header=T,stringsAsFactors = F)
 
@@ -26,7 +29,10 @@ fviz_eig(PC)
 class <- My_csv$Class[1:48]
 unique(class)
 My_csv_PC<-data.frame(PC$x,class)
+```
 
+## Plot PCA and Loadings for PC1
+```{r}
 ggplot(My_csv_PC,aes(x=PC1,y=PC2,col=class))+
   theme_set(theme_grey() + theme(legend.key=element_blank())) +
   geom_point(size=3,alpha=0.8) +
@@ -48,12 +54,15 @@ ggplot(My_csv_PC,aes(x=PC1,y=PC2,col=class))+
 
 Loadings_PC1=PC$rotation[,1]
 Loadings_PC1=sort(Loadings_PC1,decreasing=TRUE)
-PC1Length <- length(Loadings_PC1) #this gives you length (number of variables)
+PC1Length <- length(Loadings_PC1)
 Load_PC1=as.matrix(Loadings_PC1[1:PC1Length])
 Load_PC1=t(Load_PC1)
 barplot(Load_PC1,col="grey89",las=2,ylim=c(-0.4,0.4))
 abline(h=0)
+```
 
+## Prep for PLSDA
+```{r}
 class<-as.factor(class)
 k_folds <- 3
 n_LV <- 1:5 
@@ -85,13 +94,12 @@ for (i in 1:ncol(nrepeat_results)){
 plot(CVrepeated_error_averages[,1],main="Classification Error, 3-fold CV repeated 10 times", xlab="Latent Variable #", ylab="Classification error rate",ylim=c(0,1)) 
 lines(n_LV, 
       CVrepeated_error_averages[,1], lwd = 2)
+```
 
+## Run PLSDA and plot PLSDA, Loadings, and VIPs
+```{r}
 oplsda<-opls(My_csv_quant,y=class,predI=1,orthoI=1,crossvalI=6)
 
-#if using condition instead of class, must do PLS-DA not opls
-#oplsda<-opls(My_csv_quant,y=class,predI=1,orthoI=1,crossvalI=6)
-
-#SCORES PLOT:
 Scores <- getScoreMN(oplsda)
 oScores <- oplsda@orthoScoreMN
 Scores_Class <- data.frame(Scores, oScores, My_csv$Class)
@@ -124,20 +132,15 @@ ggplot(Scores_Class,aes(x=LV1,y=o1,col=Class))+
   theme(plot.title = element_blank()) +
   theme( panel.background = element_rect(colour = "black", size=1))
 
-
-#Get the LV Loadings:
-#to add more stuff to plot, use ?par
 Load<-getLoadingMN(oplsda)
 Loadsort<-sort(Load,decreasing=TRUE)
 Loading<-t(Load)
 barplot(Loading, col="grey89", las=2, ylim=c(-0.2,0.4), ylab="LV1 (Component) 25.1%", font.lab=2)
-#!!CHANGE TITLE AND LV %
 abline(h=0)
 
 VIP<-getVipVn(oplsda)
 VIPsort=sort(VIP,decreasing=TRUE)
 barplot(VIPsort, col="grey89", las=2, ylim=c(0,2), main= "VIPs", cex.main=1.5, ylab="LV1 (Component) 25.1%", font.lab=2)
-#!!CHANGE TITLE AND LV %
 abline(h=1)
 abline(h=0)
 
