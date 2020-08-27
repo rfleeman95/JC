@@ -13,7 +13,7 @@
 
 <meta name="date" content="2020-08-27" />
 
-<title>first-analysis</title>
+<title>second-analysis</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -386,7 +386,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">first-analysis</h1>
+<h1 class="title toc-ignore">second-analysis</h1>
 <h4 class="author">rfleeman95</h4>
 <h4 class="date">2020-08-27</h4>
 
@@ -535,7 +535,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/first-analysis.Rmd</code>) and HTML (<code>docs/first-analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/second-analysis.Rmd</code>) and HTML (<code>docs/second-analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -564,7 +564,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/rfleeman95/JC/blob/5407729046ba127fc827abb25bbc017ecae0a008/analysis/first-analysis.Rmd" target="_blank">5407729</a>
+<a href="https://github.com/rfleeman95/JC/blob/5407729046ba127fc827abb25bbc017ecae0a008/analysis/second-analysis.Rmd" target="_blank">5407729</a>
 </td>
 <td>
 rfleeman95
@@ -576,57 +576,6 @@ rfleeman95
 Publish the secondary files for myproject
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/rfleeman95/JC/c29ed3ad8f85c1dfe8a4c365aba4113bc0e90801/docs/first-analysis.html" target="_blank">c29ed3a</a>
-</td>
-<td>
-rfleeman95
-</td>
-<td>
-2020-08-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/rfleeman95/JC/c9b9bedfe616cc214cf919ed56f5a0c9b0b0810e/docs/first-analysis.html" target="_blank">c9b9bed</a>
-</td>
-<td>
-rfleeman95
-</td>
-<td>
-2020-08-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/rfleeman95/JC/blob/8826c2bd3e4d1d7f19c2bca87c4ee96a8f4d24a5/analysis/first-analysis.Rmd" target="_blank">8826c2b</a>
-</td>
-<td>
-rfleeman95
-</td>
-<td>
-2020-08-27
-</td>
-<td>
-Publish test files for my project
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -636,195 +585,6 @@ Publish test files for my project
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<pre class="r"><code>library(ggplot2)
-library(factoextra)</code></pre>
-<pre><code>Welcome! Related Books: `Practical Guide To Cluster Analysis in R` at https://goo.gl/13EFCZ</code></pre>
-<pre class="r"><code>library(mixOmics)</code></pre>
-<pre><code>Loading required package: MASS</code></pre>
-<pre><code>Loading required package: lattice</code></pre>
-<pre><code>Thank you for using mixOmics!
-Tutorials: http://mixomics.org, Bookdown vignette: https://mixomicsteam.github.io/Bookdown/
-Questions, issues: Follow the prompts at http://mixomics.org/contact-us/
-Cite us:  citation(&#39;mixOmics&#39;)</code></pre>
-<pre class="r"><code>library(ropls)</code></pre>
-<pre><code>Loading required package: Biobase</code></pre>
-<pre><code>Loading required package: BiocGenerics</code></pre>
-<pre><code>Loading required package: parallel</code></pre>
-<pre><code>
-Attaching package: &#39;BiocGenerics&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:parallel&#39;:
-
-    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-    clusterExport, clusterMap, parApply, parCapply, parLapply,
-    parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    anyDuplicated, append, as.data.frame, basename, cbind,
-    colnames, dirname, do.call, duplicated, eval, evalq, Filter,
-    Find, get, grep, grepl, intersect, is.unsorted, lapply, Map,
-    mapply, match, mget, order, paste, pmax, pmax.int, pmin,
-    pmin.int, Position, rank, rbind, Reduce, rownames, sapply,
-    setdiff, sort, table, tapply, union, unique, unsplit, which,
-    which.max, which.min</code></pre>
-<pre><code>Welcome to Bioconductor
-
-    Vignettes contain introductory material; view with
-    &#39;browseVignettes()&#39;. To cite Bioconductor, see
-    &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:Biobase&#39;:
-
-    combine</code></pre>
-<pre><code>The following objects are masked from &#39;package:BiocGenerics&#39;:
-
-    combine, intersect, setdiff, union</code></pre>
-<pre><code>The following object is masked from &#39;package:MASS&#39;:
-
-    select</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>setwd(&quot;/Users/BeccaFleeman/Box Sync/Proctor_Lab/Computational&quot;)
-My_csv&lt;-read.csv(&quot;Fleeman_Dennis_Data.csv&quot;,header=T,stringsAsFactors = F)
-
-My_csv_quant &lt;- My_csv[,2:25]
-PC&lt;-prcomp(My_csv_quant,scale=TRUE)
-fviz_eig(PC)</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>class &lt;- My_csv$Class[1:48]
-unique(class)</code></pre>
-<pre><code>[1] &quot;WT&quot; &quot;TG&quot;</code></pre>
-<pre class="r"><code>My_csv_PC&lt;-data.frame(PC$x,class)
-
-ggplot(My_csv_PC,aes(x=PC1,y=PC2,col=class))+
-  theme_set(theme_grey() + theme(legend.key=element_blank())) +
-  geom_point(size=3,alpha=0.8) +
-  theme(axis.text.y=element_text(colour=&quot;black&quot;,size=13))+
-  theme(axis.text.x=element_text(colour=&quot;black&quot;,size=13))+
-  theme(axis.title.y=element_text(size=12))+
-  theme(axis.title.x=element_text(size=12))+
-  theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
-  theme(panel.background = element_blank())+
-  theme(axis.line = element_line(colour = &quot;black&quot;,size=0.5))+    
-  theme(legend.title = element_blank())+
-  theme(legend.key.size = unit(0,&#39;lines&#39;))+
-  theme(legend.justification = c(0,1), legend.position = c(0.01,1))+
-  geom_hline(yintercept = 0, linetype=&quot;dashed&quot;, color=&quot;black&quot;,size=0.5)+
-  geom_vline(xintercept = 0,linetype=&quot;dashed&quot;,color=&quot;black&quot;,size=0.5)+
-  xlim(-10,10)+
-  ylim(-10,10)+
-  scale_colour_manual(values = c(&quot;blue&quot;,&quot;darkorange&quot;))</code></pre>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>Loadings_PC1=PC$rotation[,1]
-Loadings_PC1=sort(Loadings_PC1,decreasing=TRUE)
-PC1Length &lt;- length(Loadings_PC1) #this gives you length (number of variables)
-Load_PC1=as.matrix(Loadings_PC1[1:PC1Length])
-Load_PC1=t(Load_PC1)
-barplot(Load_PC1,col=&quot;grey89&quot;,las=2,ylim=c(-0.4,0.4))
-abline(h=0)</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>class&lt;-as.factor(class)
-k_folds &lt;- 3
-n_LV &lt;- 1:5 
-nrepeats &lt;- 1:10 
-nrepeat_results &lt;- matrix(NA, ncol=5,nrow=30) 
-error_groups=matrix(1:30, ncol=3, nrow=10,byrow = TRUE) 
-for(n in nrepeats){
-  folds_i &lt;- sample(rep(1:k_folds, length.out = nrow(My_csv_quant)))
-  cv_error &lt;- matrix(NA, nrow = k_folds, ncol = length(n_LV))
-   for (k in 1:k_folds) {
-    test_i &lt;- which(folds_i == k) 
-    train_set &lt;- My_csv_quant[-test_i, ] 
-    test_set &lt;- My_csv_quant[test_i, ] 
-    condition_test &lt;- class[test_i] 
-    condition_train &lt;- class[-test_i] 
-    for (i in n_LV){
-      PLSDA_train_iLVs &lt;-  opls(train_set, condition_train, predI = 1, orthoI = (i-1), fig.pdfC=NULL, info.txtC=NULL, scaleC=&#39;standard&#39;, crossvalI=8)
-      predictions &lt;- predict(PLSDA_train_iLVs, test_set)
-      cv_error[k,i] &lt;- 1-mean(as.numeric(condition_test==predictions))
-    }}
-  nrepeat_results[error_groups[n,],1:5] &lt;- cv_error
-}
-
-CVrepeated_error_averages &lt;- matrix(NA,ncol=1,nrow=5) 
-for (i in 1:ncol(nrepeat_results)){
-  CVrepeated_error_averages[i,1] &lt;- mean(nrepeat_results[,i])
-}
-
-plot(CVrepeated_error_averages[,1],main=&quot;Classification Error, 3-fold CV repeated 10 times&quot;, xlab=&quot;Latent Variable #&quot;, ylab=&quot;Classification error rate&quot;,ylim=c(0,1)) 
-lines(n_LV, 
-      CVrepeated_error_averages[,1], lwd = 2)</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>oplsda&lt;-opls(My_csv_quant,y=class,predI=1,orthoI=1,crossvalI=6)</code></pre>
-<pre><code>OPLS-DA
-48 samples x 24 variables and 1 response
-standard scaling of predictors and response(s)
-      R2X(cum) R2Y(cum) Q2(cum) RMSEE pre ort pR2Y  pQ2
-Total    0.597    0.351   0.181 0.416   1   1 0.05 0.05</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-5.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#if using condition instead of class, must do PLS-DA not opls
-#oplsda&lt;-opls(My_csv_quant,y=class,predI=1,orthoI=1,crossvalI=6)
-
-#SCORES PLOT:
-Scores &lt;- getScoreMN(oplsda)
-oScores &lt;- oplsda@orthoScoreMN
-Scores_Class &lt;- data.frame(Scores, oScores, My_csv$Class)
-colnames(Scores_Class)&lt;- c(&quot;LV1&quot;, &quot;o1&quot;, &quot;Class&quot;) #add as many o&#39;s as needed here
-
-ggplot(Scores_Class,aes(x=LV1,y=o1,col=Class))+
-  #theme_set(theme_gray() + theme(legend.key=element_blank())) +
-  geom_point(size=2,alpha=0.8)+ 
-  theme(axis.text.y=element_text(colour=&quot;black&quot;,size=12))+
-  theme(axis.text.x=element_text(colour=&quot;black&quot;,size=12))+
-  theme(axis.title.y=element_text(size=12))+
-  theme(axis.title.x=element_text(size=12))+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
-  theme(panel.background = element_blank())+
-  theme(axis.line = element_line(colour = &quot;black&quot;,size=0.5))+
-  theme(legend.title=element_blank())+
-  theme(legend.key.size = unit(0, &#39;line&#39;))+ ##
-  theme(legend.justification=c(0,1), legend.position=c(0.02,.98))+
-  theme(legend.text=element_text(size=12))+
-  scale_colour_manual(values = c(&quot;blue&quot;,&quot;darkorange&quot;))+ #need to label accordingly
-  geom_hline(yintercept=0, linetype=&quot;dashed&quot;, 
-             color = &quot;black&quot;, size=0.5)+
-  geom_vline(xintercept = 0, linetype=&quot;dashed&quot;, 
-             color = &quot;black&quot;, size=0.5)+
-  stat_ellipse(type = &quot;t&quot;)+ #default 95% confidence ellipse
-  xlim(-12,12)+
-  ylim(-12,12)+
-  xlab(&quot;Scores on LV 1 (25.1%)&quot;) +     #change this to match input LV!!!
-  ylab(&quot;Scores on LV 2 (34.7)&quot;)+     #change this to match input LV!!!
-  theme(plot.title = element_blank()) +
-  theme( panel.background = element_rect(colour = &quot;black&quot;, size=1))</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-6.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#Get the LV Loadings:
-#to add more stuff to plot, use ?par
-Load&lt;-getLoadingMN(oplsda)
-Loadsort&lt;-sort(Load,decreasing=TRUE)
-Loading&lt;-t(Load)
-barplot(Loading, col=&quot;grey89&quot;, las=2, ylim=c(-0.2,0.4), ylab=&quot;LV1 (Component) 25.1%&quot;, font.lab=2)
-#!!CHANGE TITLE AND LV %
-abline(h=0)</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-7.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>VIP&lt;-getVipVn(oplsda)
-VIPsort=sort(VIP,decreasing=TRUE)
-barplot(VIPsort, col=&quot;grey89&quot;, las=2, ylim=c(0,2), main= &quot;VIPs&quot;, cex.main=1.5, ylab=&quot;LV1 (Component) 25.1%&quot;, font.lab=2)
-#!!CHANGE TITLE AND LV %
-abline(h=1)
-abline(h=0)</code></pre>
-<p><img src="figure/first-analysis.Rmd/unnamed-chunk-1-8.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>VIPmatrix &lt;- as.data.frame(VIP)
-orderedVIPmatrix &lt;- as.data.frame(VIPmatrix[order(VIP),])</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -845,35 +605,15 @@ locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
-[1] parallel  stats     graphics  grDevices utils     datasets  methods  
-[8] base     
-
-other attached packages:
-[1] dplyr_0.8.3         ropls_1.16.0        Biobase_2.44.0     
-[4] BiocGenerics_0.30.0 mixOmics_6.8.3      lattice_0.20-38    
-[7] MASS_7.3-51.4       factoextra_1.0.5    ggplot2_3.2.1      
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   xfun_0.9           purrr_0.3.2       
- [4] reshape2_1.4.3     colorspace_1.4-1   vctrs_0.2.0       
- [7] htmltools_0.3.6    yaml_2.2.0         rlang_0.4.0       
-[10] ggpubr_0.2.3       later_0.8.0        pillar_1.4.2      
-[13] glue_1.3.1         withr_2.1.2        RColorBrewer_1.1-2
-[16] matrixStats_0.55.0 lifecycle_0.1.0    plyr_1.8.4        
-[19] stringr_1.4.0      ggsignif_0.6.0     munsell_0.5.0     
-[22] gtable_0.3.0       workflowr_1.6.2    evaluate_0.14     
-[25] labeling_0.3       knitr_1.24         httpuv_1.5.2      
-[28] rARPACK_0.11-0     Rcpp_1.0.2         corpcor_1.6.9     
-[31] promises_1.0.1     scales_1.0.0       backports_1.1.4   
-[34] fs_1.3.1           RSpectra_0.15-0    gridExtra_2.3     
-[37] ellipse_0.4.1      digest_0.6.20      stringi_1.4.3     
-[40] ggrepel_0.8.1      grid_3.6.1         rprojroot_1.3-2   
-[43] tools_3.6.1        magrittr_1.5       lazyeval_0.2.2    
-[46] tibble_2.1.3       crayon_1.3.4       whisker_0.4       
-[49] tidyr_1.0.0        pkgconfig_2.0.2    zeallot_0.1.0     
-[52] Matrix_1.2-17      assertthat_0.2.1   rmarkdown_2.3     
-[55] R6_2.4.0           igraph_1.2.4.1     git2r_0.27.1      
-[58] compiler_3.6.1    </code></pre>
+ [1] workflowr_1.6.2 Rcpp_1.0.2      rprojroot_1.3-2 digest_0.6.20  
+ [5] later_0.8.0     R6_2.4.0        backports_1.1.4 git2r_0.27.1   
+ [9] magrittr_1.5    evaluate_0.14   stringi_1.4.3   fs_1.3.1       
+[13] promises_1.0.1  whisker_0.4     rmarkdown_2.3   tools_3.6.1    
+[17] stringr_1.4.0   glue_1.3.1      httpuv_1.5.2    xfun_0.9       
+[21] yaml_2.2.0      compiler_3.6.1  htmltools_0.3.6 knitr_1.24     </code></pre>
 </div>
 </div>
 
