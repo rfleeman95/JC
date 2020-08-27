@@ -1,0 +1,17 @@
+---
+title: "first-analysis"
+author: "rfleeman95"
+date: "2020-08-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+setwd("/Users/BeccaFleeman/Box Sync/Proctor_Lab/Computational")
+My_csv<-read.csv("Fleeman_Dennis_Data.csv",header=T,stringsAsFactors = F)
+My_csv
+```
+
