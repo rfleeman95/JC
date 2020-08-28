@@ -50,7 +50,7 @@ ggplot(My_csv_PC,aes(x=PC1,y=PC2,col=class))+
   geom_vline(xintercept = 0,linetype="dashed",color="black",size=0.5)+
   xlim(-10,10)+
   ylim(-10,10)+
-  scale_colour_manual(values = c("blue","darkorange"))
+  scale_colour_manual(values = c("pink","green"))
 
 Loadings_PC1=PC$rotation[,1]
 Loadings_PC1=sort(Loadings_PC1,decreasing=TRUE)
@@ -119,7 +119,7 @@ ggplot(Scores_Class,aes(x=LV1,y=o1,col=Class))+
   theme(legend.key.size = unit(0, 'line'))+ ##
   theme(legend.justification=c(0,1), legend.position=c(0.02,.98))+
   theme(legend.text=element_text(size=12))+
-  scale_colour_manual(values = c("blue","darkorange"))+ #need to label accordingly
+  scale_colour_manual(values = c("pink","green"))+ #need to label accordingly
   geom_hline(yintercept=0, linetype="dashed", 
              color = "black", size=0.5)+
   geom_vline(xintercept = 0, linetype="dashed", 
@@ -135,12 +135,12 @@ ggplot(Scores_Class,aes(x=LV1,y=o1,col=Class))+
 Load<-getLoadingMN(oplsda)
 Loadsort<-sort(Load,decreasing=TRUE)
 Loading<-t(Load)
-barplot(Loading, col="grey89", las=2, ylim=c(-0.2,0.4), ylab="LV1 (Component) 25.1%", font.lab=2)
+barplot(Loading, col="pink", las=2, ylim=c(-0.2,0.4), ylab="LV1 (Component) 25.1%", font.lab=2)
 abline(h=0)
 
 VIP<-getVipVn(oplsda)
 VIPsort=sort(VIP,decreasing=TRUE)
-barplot(VIPsort, col="grey89", las=2, ylim=c(0,2), main= "VIPs", cex.main=1.5, ylab="LV1 (Component) 25.1%", font.lab=2)
+barplot(VIPsort, col="pink", las=2, ylim=c(0,2), main= "VIPs", cex.main=1.5, ylab="LV1 (Component) 25.1%", font.lab=2)
 abline(h=1)
 abline(h=0)
 
